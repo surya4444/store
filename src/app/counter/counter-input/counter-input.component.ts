@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { custumInput } from 'src/app/storeState/counter.action';
+import { changeName, custumInput } from 'src/app/storeState/counter.action';
+import { getName } from 'src/app/storeState/counter.selector';
 import { CounterState } from 'src/app/storeState/counter.state';
 
 @Component({
@@ -11,11 +12,17 @@ import { CounterState } from 'src/app/storeState/counter.state';
 export class CounterInputComponent implements OnInit {
   constructor(private store: Store<{ counter: CounterState }>) {}
 
-  ngOnInit(): void {}
-
+  name: string | undefined;
   value!: number;
 
+  ngOnInit(): void {
+    this.store.select(getName).subscribe((data) => (this.name = data));
+  }
+
   onAdd() {
-    this.store.dispatch(custumInput({ value: this.value }));
+    this.store.dispatch(custumInput({ value: +this.value }));
+  }
+  changeName() {
+    this.store.dispatch(changeName());
   }
 }

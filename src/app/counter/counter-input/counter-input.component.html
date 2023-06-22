@@ -1,4 +1,9 @@
 <div>
+  <p>{{ name }}</p>
   <input type="text" placeholder="enterValue" [(ngModel)]="value" />
   <button class="btn btn-primary" (click)="onAdd()">Add to counter</button>
+</div>
+
+<div>
+  <button (click)="changeName()" class="btn btn-primary">change name</button>
 </div>
